@@ -34,7 +34,9 @@ def get_playlist_info(playlist_link):
     if playlist.description:
         description = playlist.description
 
-    playlist_info = {'name': playlist.name, 'duration': playlist.duration, 'numTracks': playlist.num_tracks,
+    tracks = tracks[0:20]
+
+    playlist_info = {'name': playlist.name, 'numTracks': len(tracks),
                      'description': description, 'playlistCover': playlist.picture(320, 320), 'tracks': tracks}
     return {'isValid': True, 'playlist': playlist_info}
 
