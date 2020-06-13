@@ -32,6 +32,9 @@ from urllib.parse import urljoin
 log = logging.getLogger(__name__)
 
 
+IMG_URL = 'https://resources.tidal.com/images/'
+
+
 class Quality(Enum):
     lossless = 'LOSSLESS'
     high = 'HIGH'
@@ -308,6 +311,7 @@ def _parse_album(json_obj, artist=None, artists=None):
         'duration': json_obj.get('duration'),
         'artist': artist,
         'artists': artists,
+        'image': f'{IMG_URL}{json_obj.get("cover").replace("-", "/")}',
     }
     if 'releaseDate' in json_obj and json_obj['releaseDate'] is not None:
         try:
@@ -323,6 +327,7 @@ def _parse_featured_playlist(json_obj):
         'id': json_obj['artifactId'],
         'name': json_obj['header'],
         'description': json_obj['text'],
+        'image': json_obj.get('imageURL'),
     }
     return Playlist(**kwargs)
 
@@ -335,6 +340,7 @@ def _parse_playlist(json_obj):
         'num_tracks': int(json_obj['numberOfTracks']),
         'duration': int(json_obj['duration']),
         'is_public': json_obj['publicPlaylist'],
+        'image': f'{IMG_URL}{json_obj.get("squareImage").replace("-", "/")}'
         # TODO 'creator': _parse_user(json_obj['creator']),
     }
     return Playlist(**kwargs)

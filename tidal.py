@@ -1,5 +1,6 @@
 import json
 import os
+import html
 
 import tidalapi
 
@@ -23,18 +24,16 @@ def get_playlist_info(playlist_link):
     except:
         return {'isValid': False, 'playlist': {}}
 
-    playlist_tracks = session.get_playlist_tracks(playlist_id)
+    playlist_tracks = session.get_playlist_tracks(playlist_id)[0:20]
     tracks = []
     for track in playlist_tracks:
         tracks.append({'title': track.name, 'artist': track.artist.name, 'contributors': [
-                      artist.name for artist in track.artists], 'duration': track.duration,
+            artist.name for artist in track.artists], 'duration': track.duration,
             'album': track.album.name, 'trackCover': track.album.picture(320, 320)})
 
     description = ''
     if playlist.description:
         description = playlist.description
-
-    tracks = tracks[0:20]
 
     playlist_info = {'name': playlist.name, 'numTracks': len(tracks),
                      'description': description, 'playlistCover': playlist.picture(320, 320), 'tracks': tracks}
@@ -120,6 +119,10 @@ def delete_playlist(playlist_link):
 
 
 if __name__ == '__main__':
+    # https://tidal.com/browse/playlist/0c922ce1-0e63-46bb-a58f-24f547c419b1
+    # http://images.osl.wimpmusic.com/im/im?w=320&h=320&uuid=0c922ce1-0e63-46bb-a58f-24f547c419b1
+    # https://resources.tidal.com/images/9e04048c/47f1/4493/8803/b3ef380f2ba7/320x320.jpg
+
     playlist = get_playlist_info(
         'https://tidal.com/browse/playlist/f91b5fe5-b760-4053-9521-14b27cbffd39')
     track_list = playlist['playlist']['tracks']

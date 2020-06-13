@@ -20,8 +20,6 @@
 from __future__ import unicode_literals
 from enum import Enum
 
-IMG_URL = "http://images.osl.wimpmusic.com/im/im?w={width}&h={height}&{id_type}={id}"
-
 
 class Model(object):
     id = None
@@ -37,10 +35,7 @@ class Album(Model):
     num_tracks = -1
     duration = -1
     release_date = None
-
-    @property
-    def image(self, width=1280, height=1280):
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='albumid')
+    image = None
 
     def picture(self, width, height):
         """
@@ -51,16 +46,13 @@ class Album(Model):
         :type height: int
         Original sizes: 80x80, 160x160, 320x320, 640x640 and 1280x1280
         """
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='albumid')
+        return f'{self.image}/{width}x{height}.jpg'
 
 
 class Artist(Model):
     roles = []
     role = None
-
-    @property
-    def image(self, width=1280, height=1280):
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='artistid')
+    image = None
 
     def picture(self, width, height):
         """
@@ -71,7 +63,7 @@ class Artist(Model):
         :type height: int
         Original sizes: 80x80, 160x160, 320x320, 480x480, 640x640, 1280x1280
         """
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='artistid')
+        return f'{self.image}/{width}x{height}.jpg'
 
 
 class Playlist(Model):
@@ -83,10 +75,7 @@ class Playlist(Model):
     last_updated = None
     num_tracks = -1
     duration = -1
-
-    @property
-    def image(self, width=1080, height=1080):
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='uuid')
+    image = None
 
     def picture(self, width, height):
         """
@@ -97,7 +86,7 @@ class Playlist(Model):
         :type height: int
         Original sizes: 160x160, 320x320, 480x480, 640x640, 750x750, 1080x1080
         """
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='uuid')
+        return f'{self.image}/{width}x{height}.jpg'
 
 
 class Media(Model):
