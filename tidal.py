@@ -22,7 +22,7 @@ def get_playlist_info(playlist_link):
     try:
         playlist = session.get_playlist(playlist_id)
     except:
-        return {'isValid': False, 'playlist': {}}
+        return {'message': 'Invalid Link', 'isValid': False, 'playlist': {}}
 
     playlist_tracks = session.get_playlist_tracks(playlist_id)[0:20]
     tracks = []
