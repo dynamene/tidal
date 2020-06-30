@@ -11,7 +11,7 @@ def validate_playlist(data):
             'type': 'list',
             'empty': False,
             'required': True,
-            'maxlength': 10,
+            'maxlength': 20,
             'schema': {
                 'type': 'dict',
                 'required': True,
