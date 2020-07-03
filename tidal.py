@@ -23,6 +23,9 @@ def get_playlist_info(playlist_link):
         playlist = session.get_playlist(playlist_id)
     except:
         return {'message': 'Invalid Link', 'isValid': False, 'playlist': {}}
+    
+    if playlist.creator['id'] == 0:
+        return {'message': 'Can\'t use Tidal auto-generated playlists.', 'isValid': False, 'playlist': {}}
 
     playlist_tracks = session.get_playlist_tracks(playlist_id)[0:20]
     tracks = []

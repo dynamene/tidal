@@ -340,8 +340,8 @@ def _parse_playlist(json_obj):
         'num_tracks': int(json_obj['numberOfTracks']),
         'duration': int(json_obj['duration']),
         'is_public': json_obj['publicPlaylist'],
-        'image': f'{IMG_URL}{json_obj.get("squareImage").replace("-", "/")}'
-        # TODO 'creator': _parse_user(json_obj['creator']),
+        'image': f'{IMG_URL}{json_obj.get("squareImage").replace("-", "/")}',
+        'creator': json_obj['creator'],
     }
     return Playlist(**kwargs)
 
