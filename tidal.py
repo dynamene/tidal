@@ -23,7 +23,7 @@ def get_playlist_info(playlist_link):
         playlist = session.get_playlist(playlist_id)
     except:
         return {"message": "Invalid Link", "isValid": False, "playlist": {}}
-    
+
     if playlist.creator["id"] == 0:
         return {"message": "Can't use Tidal auto-generated playlists.", "isValid": False, "playlist": {}}
 
@@ -47,7 +47,7 @@ def find_song(track_info):
     """Find track info based on information provided
     """
     results = session.search(
-        "track", f"{track_info["title"]} {track_info["artist"]}")
+        "track", f"{track_info['title']} {track_info['artist']}")
     track_id = ""
 
     for track in results.tracks:
